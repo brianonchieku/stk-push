@@ -31,8 +31,8 @@ object RetrofitClient {
     // Function to generate Base64 encoded Consumer Key and Secret
     @RequiresApi(Build.VERSION_CODES.O)
     fun getBasicAuth(): String {
-        val consumerKey = "YOUR_CONSUMER_KEY"
-        val consumerSecret = "YOUR_CONSUMER_SECRET"
+        val consumerKey = "VzABYh4DHXQXsQd9SusfGeeUV33UQCnYVlG3Cp27jrAvpD1E"
+        val consumerSecret = "QE01WMtXUBjPYhYhtgwGAkM1QGsOjXuskqFV72zxOabDllRlGga0fzxofq96L2nr"
         val credentials = "$consumerKey:$consumerSecret"
         return "Basic " + Base64.getEncoder().encodeToString(credentials.toByteArray())
     }
