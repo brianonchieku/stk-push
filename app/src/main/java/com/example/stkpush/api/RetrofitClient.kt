@@ -6,7 +6,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
 import java.util.Base64
+import java.util.Date
+import java.util.Locale
 
 object RetrofitClient {
 
@@ -35,5 +38,16 @@ object RetrofitClient {
         val consumerSecret = "QE01WMtXUBjPYhYhtgwGAkM1QGsOjXuskqFV72zxOabDllRlGga0fzxofq96L2nr"
         val credentials = "$consumerKey:$consumerSecret"
         return "Basic " + Base64.getEncoder().encodeToString(credentials.toByteArray())
+    }
+
+    fun generateTimestamp(): String {
+        val dateFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+        return dateFormat.format(Date())
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun generatePassword(shortCode: String, passkey: String, timestamp: String): String {
+        val dataToEncode = "$shortCode$passkey$timestamp"
+        return Base64.getEncoder().encodeToString(dataToEncode.toByteArray())
     }
 }

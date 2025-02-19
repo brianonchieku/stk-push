@@ -1,15 +1,18 @@
 package com.example.stkpush.models
 
+import com.google.gson.annotations.SerializedName
+
 data class StkPushRequest(
-    val AccountReference: String,
-    val Amount: String,
-    val BusinessShortCode: String,
-    val CallBackURL: String,
-    val PartyA: String,
-    val PartyB: String,
-    val Password: String,
-    val PhoneNumber: String,
-    val Timestamp: String,
-    val TransactionDesc: String,
-    val TransactionType: String
+    @SerializedName("BusinessShortCode") val businessShortCode: String,
+    @SerializedName("Password") val password: String,
+    @SerializedName("Timestamp") val timestamp: String,
+    @SerializedName("TransactionType") val transactionType: String,
+    @SerializedName("Amount") val amount: String,
+    @SerializedName("PartyA") val partyA: String,
+    @SerializedName("PartyB") val partyB: String,
+    @SerializedName("PhoneNumber") val phoneNumber: String,
+    @SerializedName("CallBackURL") val callbackUrl: String,
+    @SerializedName("AccountReference") val accountReference: String,
+    @SerializedName("TransactionDesc") val transactionDesc: String
+
 )
