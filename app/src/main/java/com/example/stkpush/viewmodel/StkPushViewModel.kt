@@ -28,18 +28,18 @@ class StkPushViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 val timestamp = generateTimestamp()
-                val password = generatePassword("YOUR_SHORTCODE", "YOUR_PASSKEY", timestamp)
+                val password = generatePassword("174379", "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919", timestamp)
 
                 val stkPushRequest = StkPushRequest(
-                    businessShortCode = "YOUR_SHORTCODE",
+                    businessShortCode = "174379",
                     password = password,
                     timestamp = timestamp,
                     transactionType = "CustomerPayBillOnline",
                     amount = amount,
                     partyA = phoneNumber,
-                    partyB = "YOUR_SHORTCODE",
+                    partyB = "174379",
                     phoneNumber = phoneNumber,
-                    callbackUrl = "https://your-callback-url.com",
+                    callbackUrl = "https://mydomain.com/path",
                     accountReference = "TestAccount",
                     transactionDesc = "Payment for test"
                 )

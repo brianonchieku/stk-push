@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import com.example.stkpush.ui.theme.StkPushTheme
 import com.example.stkpush.viewmodel.AuthViewModel
+import com.example.stkpush.viewmodel.StkPushViewModel
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-       val viewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+       val viewModel = ViewModelProvider(this)[StkPushViewModel::class.java]
         setContent {
             AuthScreen(viewModel = viewModel )
 
