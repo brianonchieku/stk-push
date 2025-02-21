@@ -1,6 +1,7 @@
 package com.example.stkpush
 
 import android.os.Build
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresExtension
@@ -27,29 +28,7 @@ import com.example.stkpush.viewmodel.StkPushViewModel
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AuthScreen(
-   // viewModel: AuthViewModel
-    viewModel: StkPushViewModel
-) {
-   /* val context = LocalContext.current
-    var token by remember { mutableStateOf<String?>(null) }
-
-    Column(modifier = Modifier.padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
-        Button(onClick = {
-            viewModel.fetchAccessToken { fetchedToken ->
-                token = fetchedToken
-                Toast.makeText(context, "Token: $fetchedToken", Toast.LENGTH_LONG).show()
-            }
-        }) {
-            Text("Generate Access Token")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(text = "Access Token: ${token ?: "Not Fetched"}")
-    }*/
+fun AuthScreen(viewModel: StkPushViewModel) {
 
     val context = LocalContext.current
     var phoneNumber by remember { mutableStateOf("") }
@@ -74,13 +53,23 @@ fun AuthScreen(
 
         Button(onClick = {
             if (phoneNumber.isNotEmpty() && amount.isNotEmpty()) {
-                viewModel.initiateStkPush(phoneNumber, amount) { response ->
-                    if (response != null) {
-                        Toast.makeText(context, "Payment Initiated", Toast.LENGTH_LONG).show()
+                viewModel.fetchAccessToken { isSuccess ->
+                    if (isSuccess) {
+                        viewModel.initiateStkPush(phoneNumber, amount) { response ->
+                            if (response != null) {
+                                Toast.makeText(context, "Payment Initiated", Toast.LENGTH_LONG).show()
+                                Log.d("STK", "STK Push successful: ${response.CheckoutRequestID}")
+                            } else {
+                                Toast.makeText(context, "Payment Failed", Toast.LENGTH_LONG).show()
+                                Log.e("STK", "STK Push failed")
+                            }
+                        }
                     } else {
-                        Toast.makeText(context, "Payment Failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Failed to fetch access token", Toast.LENGTH_LONG).show()
+                        Log.e("STK", "Failed to fetch access token")
                     }
                 }
+
             }
         }) {
             Text("Pay Now")
